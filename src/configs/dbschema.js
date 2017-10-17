@@ -14,7 +14,7 @@ let userSchema = new Schema({
     "macid"	        :	{type: String},
     "fcmtoken"      :	{type: String},
 
-    /* property to test populate */
+    /* property to test populate :: self referencing strictly prohibitated!!!! */
     "topFollower"   : {type: Schema.Types.ObjectId, ref: "User", autopopulate:{select:'name email'} },
 }, { collection:"user",  timestamps:true});
 userSchema.plugin(autopopulate);
