@@ -10,10 +10,10 @@ router.post("/", function(req, res, next){
     let mpromise = pojo.save(reqjson);
     mpromise.then(function(data){
 
-        let sres = {"operation" : true, "data":data};
+        let sres = {"data":data};
         res.json(data);
     }).catch(function(err){
-        res.json({"operation" : false, "err":err});
+        res.json({"err":err});
     });
 });
 
