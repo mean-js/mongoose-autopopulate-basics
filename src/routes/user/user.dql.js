@@ -10,7 +10,7 @@ router.get("/:id?", function(req, res, next){
         if(req.params.id) {
             mpromise = User.findById(req.params.id).exec();
         } else {
-            mpromise = User.find().exec();
+            mpromise = User.find({}).exec();
         }
 
         mpromise.then(function(data){

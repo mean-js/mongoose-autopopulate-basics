@@ -2,6 +2,7 @@ var mongoose = require('mongoose');
 let express = require("express");
 var multer = require('multer');
 var bodyParser = require('body-parser');
+mongoose.Promise = require('bluebird');
 
 let configs = require("./configs");
 let routes = require("./routes");
