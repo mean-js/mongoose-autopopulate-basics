@@ -7,8 +7,7 @@ mongoose.Promise = require('bluebird');
 let configs = require("./configs");
 let routes = require("./routes");
 
-mongoose.connect('mongodb://localhost/test', {"useMongoClient": true});
-mongoose.Promise = global.Promise;
+mongoose.connect('mongodb://localhost/gameon', {"useMongoClient": true});
 
 let app = express();
 app.use(bodyParser.json({ limit: '10mb' }));

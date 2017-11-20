@@ -174,7 +174,7 @@ var matchSchema = new Schema ({
     matchStartTime		: {type: Date, index: true},
 
 
-}, {collection:	"Match", timestamps:true});
+}, {collection:	"match", timestamps:true});
 matchSchema.plugin(autopopulate);
 mongoose.model(config.Match.name, matchSchema);
 /**########### End ChallengeInvitation Schema ################**/
