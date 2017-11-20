@@ -1,3 +1,3 @@
 module.exports = {
-    "dbschmea" : require("./dbschema")
+    "dbschmea" : require("./dbschema1")
 };
