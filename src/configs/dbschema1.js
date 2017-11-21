@@ -130,7 +130,7 @@ var teamSchema = new Schema ({
     gallery		: 	[{type: Schema.Types.ObjectId}],
     imageIcon	:	{type: Schema.Types.ObjectId},
 
-    captain 	: {type: Schema.Types.ObjectId, ref: config.User.name},
+    captain 	: {type: Schema.Types.ObjectId, ref: config.User.name, autopopulate:{select:'_id name'}},
     invUserList : 	[{type:Schema.Types.ObjectId, ref: config.UserTeam.name}],
 
     address		: 	{
@@ -153,9 +153,9 @@ mongoose.model(config.Team.name, teamSchema);
 
 /**########### Start ChallengeInvitation cum Match Schema ################**/
 var matchSchema = new Schema ({
-    firstTeam			:	{type: Schema.Types.ObjectId, ref: config.Team.name, index: true},
+    firstTeam			:	{type: Schema.Types.ObjectId, ref: config.Team.name,  autopopulate:{select:'_id name captain'}},
 
-    secondTeam			:	{type: Schema.Types.ObjectId, ref: config.Team.name, index: true},
+    secondTeam			:	{type: Schema.Types.ObjectId, ref: config.Team.name, autopopulate:{select:'_id name captain' }},
     invStatusUpdateDate	:	Date,
 
     scheduleTime		:	Date,
@@ -163,15 +163,36 @@ var matchSchema = new Schema ({
     reschedule :{
         scheduleTime : Date,
         resourceId	:	{type: Schema.Types.ObjectId, ref: config.Resource.name},
-        byuser 	: {type: Schema.Types.ObjectId, ref: config.User.name},
+        byuser 	: {type: Schema.Types.ObjectId, ref: config.User.name, autopopulate:{select:'_id name'}},
         utime	: Date,
+    },
+
+    firstTeamInfo	:{
+        teamId		: {type: Schema.Types.ObjectId, ref: config.Team.name, autopopulate:{select:'_id name'}},
+
+        playingList : [{
+            userid	: {type: Schema.Types.ObjectId, ref: config.User.name, autopopulate:{select:'_id name'}},
+            jerseyNumber : {type: String},
+            sportRoles : [{type: Schema.Types.ObjectId, ref: config.SportsRole.name, index: true}],
+        }],
+        playingListOffField : [{
+            userid	: {type: Schema.Types.ObjectId, ref: config.User.name, autopopulate:{select:'_id name'}},
+            jerseyNumber : {type: String},
+            sportRoles : [{type: Schema.Types.ObjectId, ref: config.SportsRole.name, index: true}],
+        }],
+
+        captain 	: {type: Schema.Types.ObjectId, ref: config.User.name, autopopulate:{select:'_id name'}},
+        keeper		: {type: Schema.Types.ObjectId, ref: config.User.name, autopopulate:{select:'_id name'}},
+        coach 		: {type: Schema.Types.ObjectId, ref: config.User.name, autopopulate:{select:'_id name'}},
+        runkeeper	: {type: Schema.Types.ObjectId, ref: config.User.name, autopopulate:{select:'_id name'}},
+        freezed 	: {type:Boolean, 'default': false},
     },
 
     // Match Specific : Team and Playing Player details
     matchInitiated		: {type:Boolean, 'default': false},
-    matchInitiatedBy	: {type: Schema.Types.ObjectId, ref: config.User.name, index: true},
+    matchInitiatedBy	: {type: Schema.Types.ObjectId, ref: config.User.name, autopopulate:{select:'_id name'}},
 
-    matchStartTime		: {type: Date, index: true},
+    matchStartTime		: {type: Date},
 
 
 }, {collection:	"match", timestamps:true});

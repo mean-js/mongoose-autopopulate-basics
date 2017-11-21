@@ -25,4 +25,24 @@ router.get("/:id", function(req, res, next){
 });
 
 
+router.get("/a/b", function(req, res, next){
+   try{
+       let Match = mongoose.model("Match");
+
+       let id = "5a13ccc72323304c0400c8ac";
+       let ujson = {"scheduleTime": new Date()};
+       let mpromise = Match.findByIdAndUpdate(id, ujson).exec();
+       mpromise.then(function(data){
+
+           res.json(data);
+       }).catch(function(err){
+            res.json({});
+       });
+   }catch(err){
+       let sres = {"err":err};
+       res.json(sres);
+   };
+});
+
+
 module.exports = router;
